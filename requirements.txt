@@ -1,0 +1,11 @@
+torch>=2.1
+torchvision>=0.16
+numpy
+scipy
+opencv-python
+pillow
+gradio>=4.0
+matplotlib
+tqdm
+pytest
+# опционально: lpips — метрика LPIPS в приложении и пайплайне

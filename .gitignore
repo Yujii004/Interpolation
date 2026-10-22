@@ -1,0 +1,19 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# данные, веса и результаты экспериментов (только в корне репозитория)
+/data/
+/datasets/
+/checkpoints/
+/weights/
+/out/
+*.pth
+*.pt
+*.npy
+results/*/*.png
+!results/*/psnr_hist.png
+
+# сторонние репозитории
+/Anime2Sketch*/
+/DIS/
