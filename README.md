@@ -10,18 +10,23 @@
 
 Архитектура основана на итеративной оценке потока в стиле IFNet ([RIFE](https://github.com/hzwer/ECCV2022-RIFE)). К ней добавлены входы и модули, учитывающие специфику рисованной анимации:
 
-```mermaid
-flowchart LR
-    F["кадры 0 и 1"] --> X["внешние признаки<br/>RAFT · ISNet · Anime2Sketch"]
-    X --> I["IFNet<br/>5 итераций на 1/8 + уточнение на 1/4"]
-    F --> I
-    I --> W["backward warp<br/>+ окклюзия → coarse"]
-    X --> S["forward splatting<br/>RGB + ResNet-признаки"]
-    W --> R["RefineNet<br/>U-Net + attention"]
-    S --> R
-    R --> D["DTM: модуляция<br/>по distance transform"]
-    D --> P["промежуточный кадр"]
-```
+<p align="center">
+  <img src="assets/architecture.png" alt="Общая схема AnimeIFNet" width="720">
+</p>
+
+<details>
+<summary>Блок уточнения потока (FlowRefine)</summary>
+<p align="center">
+  <img src="assets/flow_refine.png" alt="Схема FlowRefine" width="720">
+</p>
+</details>
+
+<details>
+<summary>Уточняющая сеть (RefineNet) и ROI-композиция</summary>
+<p align="center">
+  <img src="assets/refinenet.png" alt="Схема RefineNet" width="720">
+</p>
+</details>
 
 - **Оптический поток RAFT** — инициализация потока к моменту *t*. IFNet уточняет его за 5 итераций на 1/8 разрешения, затем дилатированным блоком на 1/4 и convex upsampling.
 - **Контуры Anime2Sketch и distance transform до них.** Это доменный сигнал: в плоских заливках warping ненадёжен, и расстояние до ближайшей линии подсказывает модели, где нужна коррекция.
@@ -133,7 +138,20 @@ scene/
   a2s_gt.npy                           # контуры frame2 (скетч-подсказка), опционально
 ```
 
+## Тесты
 
-## Источники
+```bash
+python -m pytest tests -q
+```
+
+Тесты проверяют формы выходов модели во всех режимах подсказок, эквивалентность пакетной генерации нескольких кадров покадровой, корректность аугментаций потока (после отражения или поворота поток по-прежнему объясняет движение), разбиение train/val без пересечений, короткое обучение с возобновлением и воспроизводимость оценки на подмножестве сцен.
+
+## Дальнейшие шаги
+
+- Отдельный лосс на совпадение контуров результата со скетчем, чтобы подсказка реально влияла на результат.
+- Сравнение с RIFE и AnimeInterp на тех же сценах и оценка на полном тесте ATD-12K.
+- Перенос скрипта подготовки признаков в `scripts/`.
+
+## Благодарности
 
 [ATD-12K / AnimeInterp](https://github.com/lisiyao21/AnimeInterp) · [RIFE](https://github.com/hzwer/ECCV2022-RIFE) · [RAFT](https://github.com/princeton-vl/RAFT) · [Anime2Sketch](https://github.com/Mukosame/Anime2Sketch) · [DIS / IS-Net](https://github.com/xuebinqin/DIS) · [Softmax Splatting](https://github.com/sniklaus/softmax-splatting) · [EISAI](https://github.com/ShuhongChen/eisai-anime-interpolator)
