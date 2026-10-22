@@ -11,20 +11,20 @@
 Архитектура основана на итеративной оценке потока в стиле IFNet ([RIFE](https://github.com/hzwer/ECCV2022-RIFE)). К ней добавлены входы и модули, учитывающие специфику рисованной анимации:
 
 <p align="center">
-  <img src="assets/architecture.png" alt="Общая схема AnimeIFNet" width="720">
+  <img src="assets/общая.drawio.png" alt="Общая схема AnimeIFNet" width="720">
 </p>
 
 <details>
 <summary>Блок уточнения потока (FlowRefine)</summary>
 <p align="center">
-  <img src="assets/flow_refine.png" alt="Схема FlowRefine" width="720">
+  <img src="assets/flowrefine.drawio.png" alt="Схема FlowRefine" width="720">
 </p>
 </details>
 
 <details>
 <summary>Уточняющая сеть (RefineNet) и ROI-композиция</summary>
 <p align="center">
-  <img src="assets/общая.drawio.png" alt="Схема RefineNet" width="720">
+  <img src="assets/refinenet.drawio.png" alt="Схема RefineNet" width="720">
 </p>
 </details>
 
