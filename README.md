@@ -24,7 +24,7 @@
 <details>
 <summary>Уточняющая сеть (RefineNet) и ROI-композиция</summary>
 <p align="center">
-  <img src="assets/refinenet.png" alt="Схема RefineNet" width="720">
+  <img src="assets/общая.drawio.png" alt="Схема RefineNet" width="720">
 </p>
 </details>
 
@@ -138,20 +138,6 @@ scene/
   a2s_gt.npy                           # контуры frame2 (скетч-подсказка), опционально
 ```
 
-## Тесты
-
-```bash
-python -m pytest tests -q
-```
-
-Тесты проверяют формы выходов модели во всех режимах подсказок, эквивалентность пакетной генерации нескольких кадров покадровой, корректность аугментаций потока (после отражения или поворота поток по-прежнему объясняет движение), разбиение train/val без пересечений, короткое обучение с возобновлением и воспроизводимость оценки на подмножестве сцен.
-
-## Дальнейшие шаги
-
-- Отдельный лосс на совпадение контуров результата со скетчем, чтобы подсказка реально влияла на результат.
-- Сравнение с RIFE и AnimeInterp на тех же сценах и оценка на полном тесте ATD-12K.
-- Перенос скрипта подготовки признаков в `scripts/`.
-
-## Благодарности
+## Источники
 
 [ATD-12K / AnimeInterp](https://github.com/lisiyao21/AnimeInterp) · [RIFE](https://github.com/hzwer/ECCV2022-RIFE) · [RAFT](https://github.com/princeton-vl/RAFT) · [Anime2Sketch](https://github.com/Mukosame/Anime2Sketch) · [DIS / IS-Net](https://github.com/xuebinqin/DIS) · [Softmax Splatting](https://github.com/sniklaus/softmax-splatting) · [EISAI](https://github.com/ShuhongChen/eisai-anime-interpolator)
